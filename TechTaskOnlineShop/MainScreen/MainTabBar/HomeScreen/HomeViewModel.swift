@@ -81,6 +81,6 @@ final class HomeViewModel: HomeViewModelType {
         else {
             return defaultImage
         }
-        return DataManager.shared.getImage(from: user.firstName)
+        return DataManager.shared.getImage(from: user.firstName) ?? defaultImage
     }
 }

@@ -8,11 +8,11 @@
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
-    
+    func showDetailsViewController()
 }
 
 final class HomeViewController: UIViewController {
-    
+    #warning("delegate weak")
     private var viewModel: HomeViewModelType
     weak var delegate: HomeViewControllerDelegate?
     
@@ -307,4 +307,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FlashSaleCell else {return}
+        delegate?.showDetailsViewController()
+    }
 }

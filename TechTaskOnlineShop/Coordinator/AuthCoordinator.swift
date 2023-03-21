@@ -11,9 +11,9 @@ final class AuthCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    var appCoordinator: Coordinator
+    var appCoordinator: AppCoordinator
     
-    init(navigationController: UINavigationController, appCoordinator: Coordinator) {
+    init(navigationController: UINavigationController, appCoordinator: AppCoordinator) {
         self.navigationController = navigationController
         self.appCoordinator = appCoordinator
     }
@@ -28,8 +28,7 @@ final class AuthCoordinator: Coordinator {
 extension AuthCoordinator: RegistrationControllerDelegate {
     
     func showMainTabBarScreen() {
-        let mainCoordinator = MainCoordinator(navigationController: self.navigationController, appCoordinator: appCoordinator)
-        mainCoordinator.start()
+        appCoordinator.start()
     }
     
     func showLoginScreen() {

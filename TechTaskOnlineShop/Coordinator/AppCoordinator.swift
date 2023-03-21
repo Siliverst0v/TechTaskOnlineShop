@@ -26,9 +26,11 @@ class AppCoordinator: Coordinator {
         let authCoordinator = AuthCoordinator(navigationController: navigationController, appCoordinator: self)
         let mainCoordinator = MainCoordinator(navigationController: navigationController, appCoordinator: self)
         if UserDefaultsManager.userIsLoggedIn {
+            childCoordinators.removeAll()
             childCoordinators.append(mainCoordinator)
             mainCoordinator.start()
         } else {
+            childCoordinators.removeAll()
             childCoordinators.append(authCoordinator)
             authCoordinator.start()
         }

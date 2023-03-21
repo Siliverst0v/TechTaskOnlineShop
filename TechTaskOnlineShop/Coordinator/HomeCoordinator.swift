@@ -21,9 +21,12 @@ final class HomeCoordinator: Coordinator {
         homeViewController.delegate = self
         navigationController.setViewControllers([homeViewController], animated: true)
     }
-    
 }
 
 extension HomeCoordinator: HomeViewControllerDelegate {
-    
+    func showDetailsViewController() {
+        let detailsViewModel = FlashSaleDetailsViewModel()
+        let detailsViewController = FlashSaleDetailsViewController(viewModel: detailsViewModel)
+        navigationController.pushViewController(detailsViewController, animated: true)
+    }
 }

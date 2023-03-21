@@ -10,7 +10,7 @@ import UIKit
 final class FlashSaleCell: UICollectionViewCell {
     static var reuseIdentifier: String { "\(Self.self)" }
     
-    private let flashSaleImageView: UIImageView = {
+    let flashSaleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
