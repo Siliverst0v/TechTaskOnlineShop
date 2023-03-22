@@ -26,7 +26,7 @@ final class ProfileUserCell: UITableViewCell {
     let changePhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Change photo", for: .normal)
+        button.setTitle(Constants.changePhotoTitle, for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
         button.titleLabel?.font = .montserratRegular8
         return button
@@ -91,7 +91,7 @@ extension ProfileUserCell {
         if let image = cellModel.image {
             profilePhotoView.image = image
         } else {
-            profilePhotoView.image = UIImage(systemName: "person.circle")
+            profilePhotoView.image = ImageConstants.defaultUserImage
         }
         nameLabel.text = cellModel.name
     }
@@ -103,7 +103,7 @@ extension ProfileUserCell: ProfileImageChangeDelegate {
         if let currentUser = UserDefaultsManager.currentUser {
             let decoder = JSONDecoder()
             if let decodedUser = try? decoder.decode(User.self, from: currentUser) {
-                DataManager.shared.saveImage(image: image, for: decodedUser.firstName)
+                ImageManager.shared.saveImage(image: image, for: decodedUser.firstName)
             }
         }
         self.profilePhotoView.image = image

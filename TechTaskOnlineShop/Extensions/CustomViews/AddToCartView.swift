@@ -21,7 +21,7 @@ final class AddToCartView: UIView {
     let minusButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "minus"), for: .normal)
+        button.setImage(ImageConstants.minusImage, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 30)
         button.tintColor = .white
         button.backgroundColor = .customSystemColor
@@ -32,7 +32,7 @@ final class AddToCartView: UIView {
     let plusButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "minPlus"), for: .normal)
+        button.setImage(ImageConstants.miniPlusImage, for: .normal)
         button.tintColor = .white
         button.backgroundColor = .customSystemColor
         button.layer.cornerRadius = 10

@@ -49,7 +49,7 @@ final class LatestCell: UICollectionViewCell {
     private let addButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "Plus"), for: .normal)
+        button.setBackgroundImage(ImageConstants.addProductButtonImage, for: .normal)
         button.tintColor = .darkGray
         button.layer.cornerRadius = 10
         button.backgroundColor = .lightGray.withAlphaComponent(0.8)
@@ -77,7 +77,7 @@ final class LatestCell: UICollectionViewCell {
     private func configureUI() {
         backgroundColor = .clear
         clipsToBounds = true
-        layer.cornerRadius = 10
+        layer.cornerRadius = NumericalConstannts.homeCellsCornerRadius
     }
     
     private func setupLayout() {

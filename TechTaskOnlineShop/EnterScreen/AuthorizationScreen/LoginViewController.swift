@@ -14,12 +14,12 @@ protocol LoginViewControllerDelegate: AnyObject {
 final class LoginViewController: UIViewController {
     
     private var viewModel: LoginViewModelType
-    weak var delegate: LoginViewControllerDelegate?
+    weak var coordinator: LoginViewControllerDelegate?
     
     private let welcomeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Welcome back"
+        label.text = Constants.welcomeBackTitle
         label.textAlignment = .center
         label.font = .montserratSemiBold24
         return label
@@ -29,13 +29,13 @@ final class LoginViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "First name",
+            string: Constants.firstNamePlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray]
         )
         textField.textAlignment = .center
         textField.font = .montserratRegular12
         textField.backgroundColor = .systemGray5
-        textField.layer.cornerRadius = 15
+        textField.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
         return textField
     }()
     
@@ -43,13 +43,13 @@ final class LoginViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Password",
+            string: Constants.passwordPlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray]
         )
         textField.textAlignment = .center
         textField.font = .montserratRegular12
         textField.backgroundColor = .systemGray5
-        textField.layer.cornerRadius = 15
+        textField.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 0))
         textField.leftViewMode = .always
         textField.isSecureTextEntry = true
@@ -60,7 +60,7 @@ final class LoginViewController: UIViewController {
     private let warningLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "User with such data is not registered"
+        label.text = Constants.userIsNotRegistered
         label.font = .montserratRegular14
         label.textColor = .red
         label.textAlignment = .center
@@ -73,11 +73,11 @@ final class LoginViewController: UIViewController {
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Login", for: .normal)
+        button.setTitle(Constants.loginTitle, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .customSystemColor
         button.titleLabel?.font = .montserratSemiBold17
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
         return button
     }()
     
@@ -141,19 +141,23 @@ final class LoginViewController: UIViewController {
     }
     
     private func setTargets() {
-        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+        loginButton.addTarget(
+            self,
+            action: #selector(login),
+            for: .touchUpInside
+        )
     }
     
     @objc private func login() {
         guard let firstName = nameTextField.text, firstName != "" else {
-            warningLabel.text = "Enter your first name"
+            warningLabel.text = Constants.enterFirstName
             warningLabel.isHidden = false
             return}
         if viewModel.checkUserDataWith(firstName: firstName) {
             UserDefaultsManager.userIsLoggedIn = true
-            delegate?.showMainTabBarScreen()
+            coordinator?.showMainTabBarScreen()
         } else {
-            warningLabel.text = "User with such data is not registered"
+            warningLabel.text = Constants.userIsNotRegistered
             warningLabel.isHidden = false
         }
     }

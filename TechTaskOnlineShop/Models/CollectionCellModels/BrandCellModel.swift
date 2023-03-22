@@ -18,6 +18,11 @@ extension BrandCellModel {
         let nikeCell = BrandCellModel(image: "Nike")
         let reebokcell = BrandCellModel(image: "Reebok")
         
-        return [pumaCell, adidasCell, nikeCell, reebokcell]
+        return [
+            pumaCell,
+            adidasCell,
+            nikeCell,
+            reebokcell
+        ]
     }
 }

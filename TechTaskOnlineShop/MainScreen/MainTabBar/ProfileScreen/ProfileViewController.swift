@@ -15,7 +15,7 @@ protocol ProfileViewControllerDelegate: AnyObject {
 final class ProfileViewController: UIViewController {
     
     private var viewModel: ProfileViewModelType
-    var delegate: ProfileViewControllerDelegate?
+    weak var coordinator: ProfileViewControllerDelegate?
     
     private var profileTableView: UITableView = {
         let tableView = UITableView(frame: .zero,style: .plain)
@@ -48,7 +48,7 @@ final class ProfileViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = UIColor.backgroundColor
         let titleLabel = UILabel()
-        titleLabel.text = "Profile"
+        titleLabel.text = Constants.profileTitle
         titleLabel.font = .montserratSemiBold17
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
@@ -109,19 +109,19 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.cellForRow(at: indexPath) as? ProfileCell
         if cell?.titleLabel.text == Constants.logOut {
             UserDefaultsManager.userIsLoggedIn = false
-            delegate?.showRegistrationScreen()
-            delegate = nil
+            coordinator?.showRegistrationScreen()
+            coordinator = nil
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 160
+            return NumericalConstannts.userCellHeight
         } else if indexPath.row == 1 {
-            return 40
+            return NumericalConstannts.uploadCellHeight
         } else {
-            return 65
+            return NumericalConstannts.profileCellHeight
         }
     }
 }

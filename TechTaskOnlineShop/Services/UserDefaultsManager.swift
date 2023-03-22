@@ -10,7 +10,7 @@ import Foundation
 final class UserDefaultsManager {
     private enum Keys: String {
         case userIsLoggedIn = "userIsLoggedIn"
-        case currentUser = "currenUser"
+        case currentUser = "currentUser"
     }
     
     static var userIsLoggedIn: Bool {

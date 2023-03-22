@@ -8,7 +8,6 @@
 import Foundation
 
 enum HomeSection {
-    case search([SearchCellModel])
     case category([CategoryCellModel])
     case latest([Latest])
     case flashSale([FlashSale])
@@ -16,9 +15,7 @@ enum HomeSection {
     
     var items: [Any] {
         switch self {
-        
-        case .search(let items):
-            return items
+            
         case .category(let items):
             return items
         case .latest(let items):
@@ -36,17 +33,15 @@ enum HomeSection {
     
     var title: String {
         switch self {
-        
-        case .search(_):
-            return ""
+            
         case .category(_):
             return ""
         case .latest(_):
-            return "Latest"
+            return Constants.latestHeaderTitle
         case .flashSale(_):
-            return "Flash sale"
+            return Constants.flashSaleHeaderTitle
         case .brand(_):
-            return "Brands"
+            return Constants.brandsHeaderTitle
         }
     }
 }

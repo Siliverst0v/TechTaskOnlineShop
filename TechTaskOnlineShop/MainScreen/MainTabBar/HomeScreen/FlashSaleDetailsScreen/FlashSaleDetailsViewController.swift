@@ -15,12 +15,22 @@ final class FlashSaleDetailsViewController: UIViewController {
     
     private let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: collectionViewLayout
+        )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .none
         collectionView.isUserInteractionEnabled = true
         collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: DetailsCollectionViewCell.reuseIdentifier)
+        collectionView.register(
+            DetailsSmallCell.self,
+            forCellWithReuseIdentifier: DetailsSmallCell.reuseIdentifier
+        )
+        collectionView.register(
+            DetailsLargeCell.self,
+            forCellWithReuseIdentifier: DetailsLargeCell.reuseIdentifier
+        )
         return collectionView
     }()
     
@@ -78,7 +88,7 @@ final class FlashSaleDetailsViewController: UIViewController {
     private let starImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "Star")
+        imageView.image = ImageConstants.ratingStarImage
         imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
         return imageView
@@ -114,7 +124,7 @@ final class FlashSaleDetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .montserratSemiBold10
         label.textColor = .darkGray
-        label.text = "Color:"
+        label.text = Constants.colorsTitle
         return label
     }()
     
@@ -183,7 +193,13 @@ final class FlashSaleDetailsViewController: UIViewController {
         colorsStack.addArrangedSubview(thirdColorLabel)
         namePriceStack.addArrangedSubview(nameLabel)
         namePriceStack.addArrangedSubview(priceLabel)
-        view.addSubviews([collectionView, addToCartView, rateStack, colorsStack, colorLabel, descriptionLabel, namePriceStack])
+        view.addSubviews([collectionView,
+                          addToCartView,
+                          rateStack,
+                          colorsStack,
+                          colorLabel,
+                          descriptionLabel,
+                          namePriceStack])
         view.insertSubview(favouriteShareView, aboveSubview: collectionView)
     }
     
@@ -215,8 +231,6 @@ final class FlashSaleDetailsViewController: UIViewController {
             
             rateStack.leadingAnchor.constraint(equalTo: colorLabel.leadingAnchor),
             rateStack.bottomAnchor.constraint(equalTo: colorLabel.topAnchor, constant: -17),
-            rateStack.widthAnchor.constraint(equalToConstant: 100),
-            rateStack.heightAnchor.constraint(equalToConstant: 11),
             
             descriptionLabel.leadingAnchor.constraint(equalTo: rateStack.leadingAnchor),
             descriptionLabel.bottomAnchor.constraint(equalTo: rateStack.topAnchor, constant: -14),
@@ -236,12 +250,36 @@ final class FlashSaleDetailsViewController: UIViewController {
     }
     
     private func addTargets() {
-        firstColorLabel.addTarget(self, action: #selector(chooseColor(_:)), for: .touchUpInside)
-        secondColorLabel.addTarget(self, action: #selector(chooseColor(_:)), for: .touchUpInside)
-        thirdColorLabel.addTarget(self, action: #selector(chooseColor(_:)), for: .touchUpInside)
-        addToCartView.addToCartButton.addTarget(self, action: #selector(addToCart), for: .touchUpInside)
-        addToCartView.minusButton.addTarget(self, action: #selector(minusPrice), for: .touchUpInside)
-        addToCartView.plusButton.addTarget(self, action: #selector(plusPrice), for: .touchUpInside)
+        firstColorLabel.addTarget(
+            self,
+            action: #selector(chooseColor(_:)),
+            for: .touchUpInside
+        )
+        secondColorLabel.addTarget(
+            self,
+            action: #selector(chooseColor(_:)),
+            for: .touchUpInside
+        )
+        thirdColorLabel.addTarget(
+            self,
+            action: #selector(chooseColor(_:)),
+            for: .touchUpInside
+        )
+        addToCartView.addToCartButton.addTarget(
+            self,
+            action: #selector(addToCart),
+            for: .touchUpInside
+        )
+        addToCartView.minusButton.addTarget(
+            self,
+            action: #selector(minusPrice),
+            for: .touchUpInside
+        )
+        addToCartView.plusButton.addTarget(
+            self,
+            action: #selector(plusPrice),
+            for: .touchUpInside
+        )
     }
     
     private func getData() {
@@ -274,11 +312,11 @@ final class FlashSaleDetailsViewController: UIViewController {
         if isAddedToCart {
             self.inCartCount += 1
             addToCartView.addToCartButton.sumLabel.textColor = .white
-            addToCartView.addToCartButton.addLabel.text = "IN CART"
+            addToCartView.addToCartButton.addLabel.text = Constants.inCartTitle
         } else {
             self.inCartCount = 0
             addToCartView.addToCartButton.sumLabel.textColor = .addToCartSumLabelTextColor
-            addToCartView.addToCartButton.addLabel.text = "ADD TO CART"
+            addToCartView.addToCartButton.addLabel.text = Constants.addToCartTitle
         }
     }
     
@@ -314,11 +352,20 @@ extension FlashSaleDetailsViewController {
     }
     
     private func createLargeSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.85), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.85),
+            heightDimension: .fractionalHeight(1)
+        )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(279))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(279)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
         
         let section = createLayoutSection(group: group,
                                           behavior: .paging,
@@ -329,21 +376,35 @@ extension FlashSaleDetailsViewController {
     
     private func createSmallSection() -> NSCollectionLayoutSection {
         
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(65), heightDimension: .absolute(37))
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(NumericalConstannts.smallCellWidth),
+            heightDimension: .absolute(40)
+        )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalHeight(1)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
         
-        group.interItemSpacing = .fixed(5)
+        group.interItemSpacing = .fixed(NumericalConstannts.smallSectionSpacing)
         let section = createLayoutSection(group: group,
                                           behavior: .none,
                                           interGroupSpacing: 0,
                                           supplementaryItems: [])
-        let totalCellWidth = 65 * 3
-        let totalSpacing = 10
-        let inset = (self.collectionView.frame.size.width - CGFloat(totalCellWidth + totalSpacing))/2
-        section.contentInsets = .init(top: 42, leading: inset, bottom: 0, trailing: inset)
+        let totalCellWidth = NumericalConstannts.smallCellWidth * 3
+        let totalSpacing = NumericalConstannts.smallSectionSpacing * 2
+        let inset = (self.collectionView.frame.size.width - (totalCellWidth + totalSpacing))/2
+        section.contentInsets = .init(
+            top: 42,
+            leading: inset,
+            bottom: 0,
+            trailing: inset
+        )
         return section
     }
     
@@ -372,27 +433,41 @@ extension FlashSaleDetailsViewController: UICollectionViewDelegate, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DetailsCollectionViewCell.reuseIdentifier,
-            for: indexPath) as? DetailsCollectionViewCell
-        else {
-            return UICollectionViewCell()
-        }
+        
         let sections = viewModel.sections
         switch sections[indexPath.section] {
             
         case .largeImages(let images):
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: DetailsLargeCell.reuseIdentifier,
+                for: indexPath) as? DetailsLargeCell
+            else {
+                return UICollectionViewCell()
+            }
             cell.configure(with: images[indexPath.row])
-            cell.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            return cell
         case .smallImages(let images):
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: DetailsSmallCell.reuseIdentifier,
+                for: indexPath) as? DetailsSmallCell
+            else {
+                return UICollectionViewCell()
+            }
             cell.configure(with: images[indexPath.row])
+            if indexPath.row == 0 {
+                self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            }
+            return cell
         }
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            collectionView.scrollToItem(at: IndexPath(row: indexPath.row, section: 0), at: .centeredHorizontally, animated: true)
+            collectionView.scrollToItem(
+                at: IndexPath(row: indexPath.row, section: 0),
+                at: .centeredHorizontally,
+                animated: true
+            )
         }
     }
 }

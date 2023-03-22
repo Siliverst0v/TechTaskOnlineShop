@@ -1,5 +1,5 @@
 //
-//  DetailsCollectionViewCell.swift
+//  DetailsLargeCollectionViewCell.swift
 //  TechTaskOnlineShop
 //
 //  Created by Анатолий Силиверстов on 21.03.2023.
@@ -7,13 +7,16 @@
 
 import UIKit
 
-final class DetailsCollectionViewCell: UICollectionViewCell {
+final class DetailsLargeCell: UICollectionViewCell {
     static var reuseIdentifier: String { "\(Self.self)" }
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         return imageView
     }()
     
@@ -34,8 +37,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     
     private func configureUI() {
         backgroundColor = .clear
-        clipsToBounds = true
-        layer.cornerRadius = 10
     }
     
     private func setupLayout() {
@@ -47,11 +48,12 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
         ])
     }
 }
 
-extension DetailsCollectionViewCell {
+extension DetailsLargeCell {
     func configure(with productImage: UIImage) {
         self.imageView.image = productImage
     }

@@ -22,7 +22,7 @@ final class HeaderSupplementaryView: UICollectionReusableView {
     private let viewAllButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("View all", for: .normal)
+        button.setTitle(Constants.viewAllTitle, for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
         button.titleLabel?.font = .montserratRegular10
         return button

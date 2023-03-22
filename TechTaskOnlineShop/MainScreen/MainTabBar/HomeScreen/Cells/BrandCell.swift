@@ -35,7 +35,7 @@ final class BrandCell: UICollectionViewCell {
     private func configureUI() {
         backgroundColor = .clear
         clipsToBounds = true
-        layer.cornerRadius = 10
+        layer.cornerRadius = NumericalConstannts.homeCellsCornerRadius
     }
     
     private func setupLayout() {
