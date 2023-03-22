@@ -20,7 +20,7 @@ final class AuthCoordinator: Coordinator {
     
     func start() {
         let registrationViewController = RegistrationViewController(viewModel: RegistrationViewModel())
-        registrationViewController.delegate = self
+        registrationViewController.coordinator = self
         self.navigationController.setViewControllers([registrationViewController], animated: true)
     }
 }
@@ -33,7 +33,7 @@ extension AuthCoordinator: RegistrationControllerDelegate {
     
     func showLoginScreen() {
         let loginViewController = LoginViewController(viewModel: LoginViewModel())
-        loginViewController.delegate = self
+        loginViewController.coordinator = self
         self.navigationController.setViewControllers([loginViewController], animated: true)
     }
 }

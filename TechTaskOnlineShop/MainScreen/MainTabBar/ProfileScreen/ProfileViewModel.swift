@@ -52,12 +52,12 @@ final class ProfileViewModel: ProfileViewModelType {
     }
     
     func getUserImage() -> UIImage? {
-        let defaultImage = UIImage(systemName: "person.circle")
+        let defaultImage = ImageConstants.defaultUserImage
         guard let encodedUser = UserDefaultsManager.currentUser else {return defaultImage}
         guard let user = try? JSONDecoder().decode(User.self, from: encodedUser)
         else {
             return defaultImage
         }
-        return DataManager.shared.getImage(from: user.firstName)
+        return ImageManager.shared.getImage(from: user.firstName)
     }
 }

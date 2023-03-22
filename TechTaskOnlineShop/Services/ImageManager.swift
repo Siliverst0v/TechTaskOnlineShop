@@ -1,5 +1,5 @@
 //
-//  FileManager.swift
+//  ImageManager.swift
 //  TechTaskOnlineShop
 //
 //  Created by Анатолий Силиверстов on 19.03.2023.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class DataManager {
+final class ImageManager {
     
-    static let shared = DataManager()
+    static let shared = ImageManager()
     
     func saveImage(image: UIImage, for key: String) {
         let picturesUrl = FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask)[0]

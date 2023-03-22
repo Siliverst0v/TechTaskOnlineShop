@@ -61,7 +61,7 @@ final class FlashSaleCell: UICollectionViewCell {
     private let favouriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "Heart"), for: .normal)
+        button.setBackgroundImage(ImageConstants.addToFavouriteButtonImage, for: .normal)
         button.tintColor = .darkGray
         button.layer.cornerRadius = 14
         button.backgroundColor = .lightGray.withAlphaComponent(0.8)
@@ -71,7 +71,7 @@ final class FlashSaleCell: UICollectionViewCell {
     private let addButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "Plus"), for: .normal)
+        button.setBackgroundImage(ImageConstants.addProductButtonImage, for: .normal)
         button.tintColor = .darkGray
         button.layer.cornerRadius = 17
         button.backgroundColor = .lightGray.withAlphaComponent(0.8)
@@ -99,7 +99,7 @@ final class FlashSaleCell: UICollectionViewCell {
     private func configureUI() {
         backgroundColor = .clear
         clipsToBounds = true
-        layer.cornerRadius = 10
+        layer.cornerRadius = NumericalConstannts.homeCellsCornerRadius
     }
     
     private func setupLayout() {

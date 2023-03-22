@@ -13,22 +13,14 @@ extension UITextField {
     
     func enablePasswordToggle(){
         
-        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        button.setImage(UIImage(systemName: "eye"), for: .selected)
+        button.setImage(ImageConstants.eyeSlashImage, for: .normal)
+        button.setImage(ImageConstants.eyeImage, for: .selected)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -12, bottom: 0, right: 0)
         button.addTarget(self, action: #selector(togglePasswordView), for: .touchUpInside)
         button.tintColor = .black
         rightView = button
         rightViewMode = .always
         button.alpha = 0.5
-    }
-    
-    func addSearchImage() {
-        button.setImage(UIImage(named: "Search"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -30, bottom: 0, right: 0)
-        button.tintColor = .black
-        rightView = button
-        rightViewMode = .always
     }
     
     @objc func togglePasswordView(_ sender: Any) {

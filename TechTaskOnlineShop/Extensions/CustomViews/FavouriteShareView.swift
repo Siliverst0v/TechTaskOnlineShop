@@ -12,7 +12,7 @@ final class FavouriteShareView: UIView {
     private let favouriteButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "Favourite"), for: .normal)
+        button.setImage(ImageConstants.favouriteTabBarImage, for: .normal)
         return button
     }()
 
@@ -26,7 +26,7 @@ final class FavouriteShareView: UIView {
     private let shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "Share"), for: .normal)
+        button.setImage(ImageConstants.shareImage, for: .normal)
         return button
     }()
 

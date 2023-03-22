@@ -24,7 +24,6 @@ final class ProfileCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.textAlignment = .left
-        label.text = "Title label"
         label.font = .montserratRegular14
         return label
     }()
@@ -74,12 +73,12 @@ extension ProfileCell {
         titleLabel.text = cell.title
         switch cell.accessoryView {
         case .indicator:
-            let image = UIImage(named: "DisclosureIndicator")
+            let image = ImageConstants.disclousureIndicator
             let customIndocator = UIImageView(image: image)
             self.accessoryView = customIndocator
         case .balance:
             let label = UILabel()
-            label.text = "$ 1593"
+            label.text = Constants.balanceText
             label.font = .montserratRegular14
             label.sizeToFit()
             self.accessoryView = label

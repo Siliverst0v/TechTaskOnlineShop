@@ -29,7 +29,7 @@ final class MainCoordinator: Coordinator {
         let homeNavigationController = UINavigationController()
         homeNavigationController.tabBarItem = UITabBarItem(
             title: "",
-            image: UIImage(named: "Home"),
+            image: ImageConstants.homeTabBarImage,
             selectedImage: nil
         )
         let homeCoordinator = HomeCoordinator(navigationController: homeNavigationController)
@@ -40,7 +40,7 @@ final class MainCoordinator: Coordinator {
         let profileNavigationController = UINavigationController()
         profileNavigationController.tabBarItem = UITabBarItem(
             title: "",
-            image: UIImage(named: "Profile"),
+            image: ImageConstants.profileTabBarImage,
             selectedImage: nil
         )
         let profileCoordinator = ProfileCoordinator(navigationController: profileNavigationController, appCoordinator: appCoordinator)
@@ -51,7 +51,7 @@ final class MainCoordinator: Coordinator {
         let favouriteNavigationController = UINavigationController()
         favouriteNavigationController.tabBarItem = UITabBarItem(
             title: "",
-            image: UIImage(named: "Favourite"),
+            image: ImageConstants.favouriteTabBarImage,
             selectedImage: nil
         )
         
@@ -59,7 +59,7 @@ final class MainCoordinator: Coordinator {
         let cartNavigationController = UINavigationController()
         cartNavigationController.tabBarItem = UITabBarItem(
             title: "",
-            image: UIImage(named: "Cart"),
+            image: ImageConstants.cartTabBarImage,
             selectedImage: nil
         )
         
@@ -67,7 +67,7 @@ final class MainCoordinator: Coordinator {
         let chatNavigationController = UINavigationController()
         chatNavigationController.tabBarItem = UITabBarItem(
             title: "",
-            image: UIImage(named: "Chat"),
+            image: ImageConstants.chatTabBarImage,
             selectedImage: nil
         )
         

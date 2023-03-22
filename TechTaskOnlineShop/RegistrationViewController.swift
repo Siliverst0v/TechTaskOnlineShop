@@ -15,12 +15,12 @@ protocol RegistrationControllerDelegate: AnyObject {
 final class RegistrationViewController: UIViewController {
     
     private var viewModel: RegistrationViewModelType
-    weak var delegate: RegistrationControllerDelegate?
+    weak var coordinator: RegistrationControllerDelegate?
     
     private let signInLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Sign in"
+        label.text = Constants.signInTitle
         label.textAlignment = .center
         label.font = .montserratSemiBold24
         return label
@@ -30,13 +30,13 @@ final class RegistrationViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "First name",
+            string: Constants.firstNamePlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray]
         )
         textField.textAlignment = .center
         textField.font = .montserratRegular12
         textField.backgroundColor = .systemGray5
-        textField.layer.cornerRadius = 15
+        textField.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
         return textField
     }()
     
@@ -44,13 +44,13 @@ final class RegistrationViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Last name",
+            string: Constants.lastNamePlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray]
         )
         textField.textAlignment = .center
         textField.font = .montserratRegular12
         textField.backgroundColor = .systemGray5
-        textField.layer.cornerRadius = 15
+        textField.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
         return textField
     }()
     
@@ -58,14 +58,14 @@ final class RegistrationViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Email",
+            string: Constants.emailPlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray]
         )
         textField.textAlignment = .center
         textField.font = .montserratRegular12
         textField.backgroundColor = .systemGray5
-        textField.layer.cornerRadius = 15
-        textField.tag = Constants.emailTextFieldTag
+        textField.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
+        textField.tag = NumericalConstannts.emailTextFieldTag
         return textField
     }()
     
@@ -84,18 +84,18 @@ final class RegistrationViewController: UIViewController {
     private let signInButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Sign in", for: .normal)
+        button.setTitle(Constants.signInTitle, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .customSystemColor
         button.titleLabel?.font = .montserratSemiBold17
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
         return button
     }()
     
     private var haveAnAccountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Already have an account?"
+        label.text = Constants.alreadyHaveAccount
         label.font = .montserratRegular12
         label.textColor = .darkGray
         return label
@@ -104,7 +104,7 @@ final class RegistrationViewController: UIViewController {
     private lazy var logInButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Log in", for: .normal)
+        button.setTitle(Constants.logInTitle, for: .normal)
         button.setTitleColor(UIColor.customSystemColor, for: .normal)
         button.titleLabel?.font = .montserratRegular12
         return button
@@ -122,9 +122,14 @@ final class RegistrationViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Sign in with Google", for: .normal)
-        button.setImage(UIImage(named: "Google"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        button.setTitle(Constants.signInWithGoogle, for: .normal)
+        button.setImage(ImageConstants.googleLabelImage, for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 20
+        )
         button.tintColor = .black
         button.titleLabel?.font = .montserratRegular14
         return button
@@ -134,9 +139,14 @@ final class RegistrationViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Sign in with Apple", for: .normal)
-        button.setImage(UIImage(named: "Apple"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        button.setTitle(Constants.signInWithApple, for: .normal)
+        button.setImage(ImageConstants.appleLabelImage, for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 20
+        )
         button.tintColor = .black
         button.titleLabel?.font = .montserratRegular14
         return button
@@ -231,43 +241,51 @@ final class RegistrationViewController: UIViewController {
     }
     
     private func addTargets() {
-        signInButton.addTarget(self, action: #selector(checkUserData), for: .touchUpInside)
-        logInButton.addTarget(self, action: #selector(showLogInScreen), for: .touchUpInside)
+        signInButton.addTarget(
+            self,
+            action: #selector(checkUserData),
+            for: .touchUpInside
+        )
+        logInButton.addTarget(
+            self,
+            action: #selector(showLogInScreen),
+            for: .touchUpInside
+        )
     }
     
     @objc private func checkUserData() {
         guard let firstName = nameTextField.text, firstName != "",
               let lastName = lastnameTextField.text, lastName != "",
               let email = emailTextField.text, email != "" else {
-            warningLabel.text = "Fill in all the fields"
+            warningLabel.text = Constants.fillInAllTheFields
             warningLabel.isHidden = false
             return
         }
         guard viewModel.emailIsValid(email: email) else {
             warningLabel.isHidden = false
-            warningLabel.text = "Wrong format Email"
+            warningLabel.text = Constants.wrongEmailFormat
             return
         }
         if viewModel.checkUserDataWith(firstName: firstName, lastName: lastName, email: email) {
-            delegate?.showMainTabBarScreen()
+            coordinator?.showMainTabBarScreen()
         } else {
-            warningLabel.text = "User with such data is already registered"
+            warningLabel.text = Constants.userAlreadyRegistered
             warningLabel.isHidden = false
         }
     }
     
     @objc private func showLogInScreen() {
-        delegate?.showLoginScreen()
+        coordinator?.showLoginScreen()
     }
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == Constants.emailTextFieldTag {
+        if textField.tag == NumericalConstannts.emailTextFieldTag {
             guard let text = textField.text, viewModel.emailIsValid(email: text) else {
                 warningLabel.isHidden = false
-                warningLabel.text = "Wrong format Email"
+                warningLabel.text = Constants.wrongEmailFormat
                 return}
             warningLabel.isHidden = true
         }

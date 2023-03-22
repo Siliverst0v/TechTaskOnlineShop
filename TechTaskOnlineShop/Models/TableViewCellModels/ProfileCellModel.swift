@@ -24,7 +24,8 @@ extension ProfileCellModel {
         let tradeStoreCell = ProfileCellModel(
             image: "Card",
             title: Constants.tradeStore,
-            accessoryView: .indicator)
+            accessoryView: .indicator
+        )
         let paymentMethodCell = ProfileCellModel(
             image: "Card",
             title: Constants.paymentMethod,

@@ -20,7 +20,7 @@ final class ProfileCoordinator: Coordinator {
     
     func start() {
         let profileViewController = ProfileViewController(viewModel: ProfileViewModel())
-        profileViewController.delegate = self
+        profileViewController.coordinator = self
         navigationController.setViewControllers([profileViewController], animated: true)
     }
     

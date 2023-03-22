@@ -15,7 +15,7 @@ final class ProfileUploadItemCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Upload item", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setImage(UIImage(named: "Upload"), for: .normal)
+        button.setImage(ImageConstants.uploadButtonImage, for: .normal)
         button.tintColor = .white
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 80)
         button.backgroundColor = .customSystemColor

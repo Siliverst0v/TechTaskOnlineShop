@@ -13,18 +13,18 @@ protocol HomeViewModelType {
     func getNumberOfSections() -> Int
     func getNumberOfItemsInSection(section: Int) -> Int
     func getUserImage() -> UIImage?
+    func getSearchWords(searchText: String, completion: @escaping ([String]) -> Void)
 }
 
 final class HomeViewModel: HomeViewModelType {
     let netWorkManager = NetworkManager()
     
-    let urls = [Constants.latestUrl, Constants.latestUrl]
     var sections: [HomeSection] = []
-    var searchModels: [SearchCellModel] = []
-    var categoryModels: [CategoryCellModel] = []
-    var latestModels: [Latest] = []
-    var flashSaleModels: [FlashSale] = []
-    var brandCellModels: [BrandCellModel] = []
+    
+    private var categoryModels: [CategoryCellModel] = []
+    private var latestModels: [Latest] = []
+    private var flashSaleModels: [FlashSale] = []
+    private var brandCellModels: [BrandCellModel] = []
     
     func getNumberOfSections() -> Int {
         self.sections.count
@@ -62,11 +62,9 @@ final class HomeViewModel: HomeViewModelType {
             }
         }
         group.notify(queue: .main) {
-            self.searchModels = SearchCellModel.cellModels
             self.categoryModels = CategoryCellModel.cellModels
             self.brandCellModels = BrandCellModel.cellModels
-            self.sections = [HomeSection.search(self.searchModels),
-                             HomeSection.category(self.categoryModels),
+            self.sections = [HomeSection.category(self.categoryModels),
                              HomeSection.latest(self.latestModels),
                              HomeSection.flashSale(self.flashSaleModels),
                              HomeSection.brand(self.brandCellModels)]
@@ -75,12 +73,31 @@ final class HomeViewModel: HomeViewModelType {
     }
     
     func getUserImage() -> UIImage? {
-        let defaultImage = UIImage(systemName: "person.circle")
+        let defaultImage = ImageConstants.defaultUserImage
         guard let encodedUser = UserDefaultsManager.currentUser else {return defaultImage}
         guard let user = try? JSONDecoder().decode(User.self, from: encodedUser)
         else {
             return defaultImage
         }
-        return DataManager.shared.getImage(from: user.firstName) ?? defaultImage
+        return ImageManager.shared.getImage(from: user.firstName) ?? defaultImage
+    }
+    
+    func getSearchWords(searchText: String, completion: @escaping ([String]) -> Void) {
+        var similarWords: [String] = []
+        netWorkManager.fetchData(from: Constants.searchWordsUrl) { result in
+            switch result {
+                
+            case .success(let data):
+                guard let searchWords = try? JSONDecoder().decode(SearchWords.self, from: data) else { return }
+                for word in searchWords.words {
+                    if word.localizedCaseInsensitiveContains(searchText) {
+                        similarWords.append(word)
+                    }
+                }
+                completion(similarWords)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

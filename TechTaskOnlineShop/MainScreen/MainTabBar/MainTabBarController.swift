@@ -27,7 +27,7 @@ final class MainTabBarController: UITabBarController {
         tabBar.barTintColor = .white
         tabBar.backgroundColor = .white
         
-        tabBar.layer.cornerRadius = 30
+        tabBar.layer.cornerRadius = NumericalConstannts.tabBarDefaultCornerRadius
         tabBar.layer.masksToBounds = true
     }
 }
