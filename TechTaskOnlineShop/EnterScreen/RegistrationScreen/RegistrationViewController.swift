@@ -66,6 +66,8 @@ final class RegistrationViewController: UIViewController {
         textField.backgroundColor = .systemGray5
         textField.layer.cornerRadius = NumericalConstannts.defaultCornerRadius
         textField.tag = NumericalConstannts.emailTextFieldTag
+        textField.keyboardType = .emailAddress
+        textField.textContentType = .emailAddress
         return textField
     }()
     
